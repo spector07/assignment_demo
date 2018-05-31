@@ -1,0 +1,11 @@
+.row.bg-primary.header{
+    padding: 1% 0;
+}
+.header .form-group{
+    margin-bottom: 0%;
+}
+img.user-image {
+    border-radius: 50%;
+    height: auto;
+    max-width: 100%;
+}

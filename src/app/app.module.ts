@@ -3,7 +3,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router'
 import { AppComponent } from './app.component';
 import { UserlistComponent } from './userlist/userlist.component';
-import { routes } from './app.router'
+import { routes } from './app.router';
+import {MatInputModule, MatSelectModule} from '@angular/material';
+import { HttpModule } from '@angular/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -12,7 +15,10 @@ import { routes } from './app.router'
   imports: [
     BrowserModule,
     RouterModule,
-    routes
+    routes,
+    MatInputModule,
+    MatSelectModule,
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]
