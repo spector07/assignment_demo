@@ -83,12 +83,10 @@ export class UserlistComponent implements OnInit {
   }
 
   sortHighToLow(a, b) {
-    a = a.toLowerCase();
-    b = b.toLowerCase();
-    if (a > b) {
+    if (a < b) {
       return -1;
     }
-    else if (a < b) {
+    else if (a > b) {
       return 1;
     }
     else {
@@ -97,8 +95,6 @@ export class UserlistComponent implements OnInit {
   }
 
   sortLowToHigh(a, b) {
-    a = a.toLowerCase();
-    b = b.toLowerCase();
     if (a > b) {
       return -1;
     }
@@ -125,6 +121,7 @@ export class UserlistComponent implements OnInit {
         }
       });
       this.user_list = data;
+      console.log(this.user_list)
     }
 
   }
