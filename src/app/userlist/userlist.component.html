@@ -2,65 +2,83 @@
   <div class="col-md-3"></div>
   <div class="col-md-3">
     <div class="form-group pull-right">
-      <select class="custom-select">
+      <select [(ngModel)]="selectedValue" (change)="sortingList(selectedValue)" class="custom-select">
+        <option *ngFor="let itm of sortby" [ngValue]="itm.value">{{itm.name}}</option>
       </select>
     </div>
   </div>
   <div class="col-md-3">
     <div class="form-group">
-      <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+      <input class="form-control" (input)="getUserList($event.target.value)" type="search" placeholder="Search" aria-label="Search">
     </div>
   </div>
   <div class="col-md-3"></div>
 </div>
 
-<div class="row main-content">
-  <div class="col-md-3"></div>
-  <div class="col-md-6">
-    <p>Total Users: {{user_count}}</p>
-    <div *ngFor="let item of user_list" class="col-md-12">
-      <div class="row">
-        <div class="col-md-2 text-center">
-          <img src="{{item.avatar_url}}" class="user-image img-responsive" alt="...">
-        </div>
-        <div class="col-md-8">
-          <h4 class="text-capitalize">{{item.login}}</h4>
-          <p>Profile URL:
-            <a href="{{html_url}}" target="_blank">{{item.html_url}}</a>
-          </p>
-          <p>
-            <small>Data One</small>
-          </p>
-          <p>
-            <small>Data One</small>
-          </p>
-        </div>
-        <div class="col-md-2">
-          <a class="btn btn-primary" data-toggle="collapse" href="#{{item.login}}" role="button" aria-expanded="false" aria-controls="collapseExample">
-            Show More
-          </a>
-        </div>
-      </div>
-      <div class="col-md-12">
-        
-        <div class="collapse" id="{{item.login}}">
-          <h5>Repository History</h5>
-          <div class="card card-body">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">Name</th>
-                  <th scope="col">Information</th>
+<div class="container">
+  <div class="row main-content">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <p>Total Users: {{user_count}}</p>
+      <div *ngFor="let item of user_list | paginate: { itemsPerPage: 10, currentPage: r , id: 'a' }; let i = index" class="col-md-12">
+        <div class="row users">
+          <div class="col-md-2 text-center">
+            <img src="{{item.avatar_url}}" class="user-image img-responsive" alt="...">
+          </div>
+          <div class="col-md-7">
+            <h4 class="text-capitalize">{{item.login}}</h4>
+            <p>Profile URL:
+              <a href="{{item.html_url}}" target="_blank">{{item.html_url}}</a>
+            </p>
+          </div>
+          <div class="col-md-3">
+            <a class="btn btn-primary" (click)="getRepos(item.login)" data-toggle="collapse" href="#{{item.login}}" role="button" aria-expanded="false"
+              aria-controls="collapseExample">
+              Collapse
+            </a>
+          </div>
+          <div class="collapse repos" id="{{item.login}}">
+            <h5>Repository History</h5>
+            <div class="card card-body">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Information</th>
+                  </tr>
+                </thead>
+                <tr *ngFor="let repo of user_repos | paginate: { itemsPerPage: 10, currentPage: s , id: 'b' }; let t = index">
+                  <td>{{repo.name}}</td>
+                  <td>
+                    <p class="text-info">Followers :
+                      <span class="text-dark">{{repo.watchers}}</span>
+                    </p>
+                    <p class="text-info">Language :
+                      <span class="text-dark">{{repo.language}}</span>
+                    </p>
+                    <p class="text-info">Open Issues :
+                      <span class="text-dark">{{repo.open_issues}}</span>
+                    </p>
+                    <p class="text-info">Forks :
+                      <span class="text-dark">{{repo.forks_count}}</span>
+                    </p>
+                  </td>
                 </tr>
-              </thead>
-              <tr *ngFor="let repo of user_repos">
-                <td>{{repo.name}}</td>
-              </tr>
-            </table>
+                <tr *ngIf="user_repos?.length > 1">
+                  <td colspan="2">
+                      <pagination-controls (pageChange)="s = $event" id="b"></pagination-controls>
+                  </td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
       </div>
+      <div *ngIf="user_count > 1">
+        <pagination-controls (pageChange)="r = $event" id="a"></pagination-controls>
+      </div>
+
     </div>
+    <div class="col-md-3"></div>
   </div>
-  <div class="col-md-3"></div>
 </div>

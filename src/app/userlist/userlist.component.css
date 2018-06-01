@@ -1,5 +1,6 @@
 .row.bg-primary.header{
     padding: 1% 0;
+    margin-bottom:5%; 
 }
 .header .form-group{
     margin-bottom: 0%;
@@ -8,4 +9,20 @@ img.user-image {
     border-radius: 50%;
     height: auto;
     max-width: 100%;
+}
+.repos {
+    margin-top: 5%;
+    width: 100%;
+}
+.users{
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    padding: 4%;
+    margin-bottom: 5%
+}
+
+@media only screen and (max-width: 767px){
+    .header .form-group{
+        width: 80%;
+        margin: 2% auto;
+    }
 }

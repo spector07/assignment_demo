@@ -4,8 +4,9 @@ import { Routes, RouterModule } from '@angular/router'
 import { AppComponent } from './app.component';
 import { UserlistComponent } from './userlist/userlist.component';
 import { routes } from './app.router';
-import {MatInputModule, MatSelectModule} from '@angular/material';
 import { HttpModule } from '@angular/http';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,9 +17,10 @@ import { HttpModule } from '@angular/http';
     BrowserModule,
     RouterModule,
     routes,
-    MatInputModule,
-    MatSelectModule,
-    HttpModule
+    HttpModule,
+    NgxPaginationModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
