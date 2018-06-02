@@ -19,7 +19,8 @@
   <div class="row main-content">
     <div class="col-md-3"></div>
     <div class="col-md-6">
-      <p>Total Users: {{user_count}}</p>
+      <p class="text-danger text-center" *ngIf="user_count == 0">Search for github username in the search box.</p>
+      <p *ngIf="user_count != 0">Total Users: {{user_count}}</p>
       <div *ngFor="let item of user_list | paginate: { itemsPerPage: 10, currentPage: r , id: 'a' }; let i = index" class="col-md-12">
         <div class="row users">
           <div class="col-md-2 text-center">

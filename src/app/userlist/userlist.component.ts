@@ -8,8 +8,8 @@ import { environment } from '../../environments/environment';
 })
 export class UserlistComponent implements OnInit {
 
-  public user_list;
-  public user_count;
+  public user_list = [];
+  public user_count = 0;
   public user_repos;
   public repo_lang;
   public followers;
@@ -30,8 +30,9 @@ export class UserlistComponent implements OnInit {
 
   getUserList(searchValue: string) {
     //console.log(searchValue)
-    if (searchValue != '' && searchValue != null) {
-      var thisaap = this;
+    searchValue = searchValue.trim();
+    if (searchValue.length != 0) {
+      let thisaap = this;
       this.http.get("https://api.github.com/search/users?q=" + searchValue + "&client_id=" + environment.git_client_id + "&client_secret=" + environment.git_client_api_key).subscribe(function (response) {
         if (response) {
           var body_data = response['_body'];
@@ -40,6 +41,11 @@ export class UserlistComponent implements OnInit {
           thisaap.user_count = data.total_count;
         }
       });
+    }
+    else{
+      this.user_list = [];
+      this.user_count = 0;
+      console.log(this.user_list+"-----"+this.user_count)
     }
   }
 
