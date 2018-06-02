@@ -15,6 +15,7 @@ export class UserlistComponent implements OnInit {
   public followers;
   public userName;
   public selectedValue;
+  public r;
   constructor(public http: Http) { }
   public sortby = [
     { 'name': 'Name A->Z', 'value': 'AZ' },
