@@ -33,7 +33,7 @@
             </p>
           </div>
           <div class="col-md-3">
-            <a class="btn btn-primary" (click)="getRepos(item.login)" data-toggle="collapse" href="#{{item.login}}" role="button" aria-expanded="false"
+            <a class="btn btn-primary" (click)="getRepos(item)" data-toggle="collapse" href="#{{item.login}}" role="button" aria-expanded="false"
               aria-controls="collapseExample">
               Collapse
             </a>
@@ -48,7 +48,7 @@
                     <th scope="col">Information</th>
                   </tr>
                 </thead>
-                <tr *ngFor="let repo of user_repos | paginate: { itemsPerPage: 10, currentPage: s , id: 'b' }; let t = index">
+                <tr *ngFor="let repo of item.repos | paginate: { itemsPerPage: 10, currentPage: s , id: 'b' }; let t = index">
                   <td>{{repo.name}}</td>
                   <td>
                     <p class="text-info">Followers :

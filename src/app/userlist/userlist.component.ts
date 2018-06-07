@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { environment } from '../../environments/environment';
+import { DemoserveService } from '../demoService/demoserve.service'
+ 
 @Component({
   selector: 'app-userlist',
   templateUrl: './userlist.component.html',
@@ -16,7 +18,7 @@ export class UserlistComponent implements OnInit {
   public userName;
   public selectedValue;
   public r;
-  constructor(public http: Http) { }
+  constructor(public http: Http, private serve : DemoserveService) { }
   public sortby = [
     { 'name': 'Name A->Z', 'value': 'AZ' },
     { 'name': 'Name Z->A', 'value': 'ZA' },
@@ -26,7 +28,7 @@ export class UserlistComponent implements OnInit {
   ngOnInit() {
 
     // this.getUserList();
-
+    this.serve.helloPrint();
   }
 
   getUserList(searchValue: string) {
@@ -39,24 +41,29 @@ export class UserlistComponent implements OnInit {
           var body_data = response['_body'];
           var data = JSON.parse(body_data);
           thisaap.user_list = data.items;
+          thisaap.user_list.forEach(element => {
+            element.repos = []
+          });;
           thisaap.user_count = data.total_count;
+
+         // console.log(thisaap.user_list)
         }
       });
     }
     else{
       this.user_list = [];
       this.user_count = 0;
-      console.log(this.user_list+"-----"+this.user_count)
+     // console.log(this.user_list+"-----"+this.user_count)
     }
   }
+  
 
-
-  getRepos(username) {
+  getRepos(user) {
     var thisaap = this;
-    this.http.get("https://api.github.com/users/" + username + "/repos" + "?client_id=" + environment.git_client_id + "&client_secret=" + environment.git_client_api_key).subscribe(function (response) {
+    this.http.get("https://api.github.com/users/" + user.login + "/repos" + "?client_id=" + environment.git_client_id + "&client_secret=" + environment.git_client_api_key).subscribe(function (response) {
       if (response) {
         var body_data = response['_body'];
-        thisaap.user_repos = JSON.parse(body_data);
+        user.repos = JSON.parse(body_data);
       }
     });
   }
